@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - G-Studio PowerTools</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; color: #333; }
+        h1 { color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 10px; }
+        h2 { color: #188038; margin-top: 30px; }
+        .highlight { background: #f1f3f4; padding: 15px; border-radius: 8px; margin: 20px 0; }
+        .date { color: #5f6368; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <h1>Privacy Policy for G-Studio PowerTools</h1>
+    <p class="date">Last updated: February 3, 2026</p>
+
+    <div class="highlight">
+        <strong>TL;DR:</strong> We collect absolutely nothing. Your data stays on your computer.
+    </div>
+
+    <h2>1. Information We Collect</h2>
+    <p><strong>None.</strong> G-Studio PowerTools operates entirely locally within your browser. We do not collect, transmit, or store any of the following:</p>
+    <ul>
+        <li>Chat messages or conversation content</li>
+        <li>Prompts you save to the library</li>
+        <li>Boundary flags you set</li>
+        <li>Browsing history</li>
+        <li>Personal identifiers</li>
+        <li>Usage analytics</li>
+    </ul>
+
+    <h2>2. Data Storage</h2>
+    <p>All data is stored locally using:</p>
+    <ul>
+        <li><code>chrome.storage.local</code> - for your prompt library and settings</li>
+        <li><code>chrome.storage.session</code> - for temporary state (if needed)</li>
+    </ul>
+    <p>This data never leaves your device and is automatically cleared when you uninstall the extension.</p>
+
+    <h2>3. Permissions Justification</h2>
+    <table border="1" style="border-collapse: collapse; width: 100%; margin: 20px 0;">
+        <tr style="background: #f1f3f4;">
+            <th style="padding: 10px; text-align: left;">Permission</th>
+            <th style="padding: 10px; text-align: left;">Why We Need It</th>
+        </tr>
+        <tr>
+            <td style="padding: 10px;"><code>storage</code></td>
+            <td style="padding: 10px;">To save your prompt library and boundary flags locally</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;"><code>activeTab</code></td>
+            <td style="padding: 10px;">To detect when you're on AI Studio and inject the sidebar</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;"><code>host_permissions</code> (aistudio.google.com)</td>
+            <td style="padding: 10px;">Strictly limited to Google AI Studio to add delete buttons and sidebar</td>
+        </tr>
+    </table>
+
+    <h2>4. Third-Party Services</h2>
+    <p>We do not use:</p>
+    <ul>
+        <li>Google Analytics</li>
+        <li>Tracking pixels</li>
+        <li>CDN-hosted JavaScript (all code is bundled)</li>
+        <li>External APIs</li>
+    </ul>
+
+    <h2>5. Open Source</h2>
+    <p>This extension is open source. You can inspect the entire codebase at:</p>
+    <p><a href="https://github.com/tal-shulgin/g-studio-powertools" target="_blank">github.com/yourusername/g-studio-powertools</a></p>
+
+    <h2>6. Contact</h2>
+    <p>Questions about privacy? <a href="https://github.com/tal-shulgin/g-studio-powertools/issues">Open an issue on GitHub</a>.</p>
+</body>
+</html>

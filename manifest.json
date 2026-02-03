@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "G-Studio PowerTools",
+  "version": "2.1.1",
+  "description": "Bulk delete, prompt library, and context management for Google AI Studio.",
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": ["https://aistudio.google.com/*"],
+  "icons": {
+      "16":  "icons/icon16.png",
+      "48":  "icons/icon48.png",
+      "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://aistudio.google.com/*"],
+      "js": [
+        "utils.js", 
+        "storage.js", 
+        "ui-controller.js", 
+        "features/onboarding.js",
+        "features/feedback.js",
+        "features/monetization.js",
+        "content.js"
+      ],
+      "css": ["sidebar.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Validate manifest.json
+        run: |
+          if ! jq . manifest.json > /dev/null 2>&1; then
+            echo "❌ Invalid JSON in manifest.json"
+            exit 1
+          fi
+          echo "✅ manifest.json is valid JSON"
+      
+      - name: Check required files exist
+        run: |
+          required_files=("manifest.json" "content.js" "utils.js" "storage.js" "ui-controller.js" "sidebar.css")
+          for file in "${required_files[@]}"; do
+            if [[ ! -f "$file" ]]; then
+              echo "❌ Missing required file: $file"
+              exit 1
+            fi
+            echo "✅ Found: $file"
+          done
+      
+      - name: Lint JavaScript (basic checks)
+        run: |
+          # Check for common issues
+          if grep -r "console.log" --include="*.js" . | grep -v "const DEBUG" | grep -v "console.error"; then
+            echo "⚠️  Warning: Found console.log statements (consider removing for production)"
+          fi
+          
+          if grep -r "debugger" --include="*.js" .; then
+            echo "❌ Found debugger statements"
+            exit 1
+          fi
+      
+      - name: Check manifest version format
+        run: |
+          version=$(jq -r '.version' manifest.json)
+          if [[ ! $version =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "❌ Invalid version format: $version (should be x.x.x)"
+            exit 1
+          fi
+          echo "✅ Version format valid: $version"
+
+      - name: Create test package
+        run: |
+          zip -r test-package.zip . -x "*.git*" -x "*.github*" -x "*.zip"
+          size=$(stat -f%z test-package.zip 2>/dev/null || stat -c%s test-package.zip)
+          echo "Package size: $size bytes"
+          if [ $size -gt 2097152 ]; then
+            echo "⚠️  Warning: Package exceeds 2MB Chrome Web Store warning threshold"
+          fi
+          rm test-package.zip

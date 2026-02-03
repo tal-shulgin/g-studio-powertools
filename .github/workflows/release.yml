@@ -1,0 +1,67 @@
+name: Release & Publish to Chrome Web Store
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Triggers on version tags like v1.2.3
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for changelog generation
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Update manifest version
+        run: |
+          sed -i 's/"version": "[^"]*"/"version": "${{ steps.get_version.outputs.VERSION }}"/' manifest.json
+
+      - name: Create release zip
+        run: |
+          zip -r g-studio-powertools-${{ steps.get_version.outputs.VERSION }}.zip . \
+            -x "*.git*" \
+            -x "*.github*" \
+            -x "README.md" \
+            -x "PRIVACY.md" \
+            -x "*.zip" \
+            -x "screenshots/*" \
+            -x "promo/*"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: g-studio-powertools-${{ steps.get_version.outputs.VERSION }}.zip
+          generate_release_notes: true
+          body: |
+            ## Installation
+            1. Download `g-studio-powertools-${{ steps.get_version.outputs.VERSION }}.zip`
+            2. Extract the zip file
+            3. Open Chrome and navigate to `chrome://extensions/`
+            4. Enable "Developer mode"
+            5. Click "Load unpacked" and select the extracted folder
+
+      - name: Upload to Chrome Web Store
+        uses: wdzeng/chrome-extension@v1
+        with:
+          extension-id: ${{ secrets.CHROME_EXTENSION_ID }}
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          zip-path: g-studio-powertools-${{ steps.get_version.outputs.VERSION }}.zip
+
+      - name: Update major version badge
+        if: contains(github.ref, '.0.0')
+        run: |
+          echo "Major version released - update marketing materials"

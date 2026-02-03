@@ -1,0 +1,225 @@
+/* --- TABS --- */
+.gpt-tab-nav {
+    display: flex;
+    border-bottom: 1px solid var(--color-v3-outline-variant);
+    background: transparent;
+}
+
+.gpt-tab {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-v3-on-surface-variant);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+}
+
+.gpt-tab.active {
+    color: var(--color-v3-primary);
+    border-bottom-color: var(--color-v3-primary) !important;
+}
+
+/* --- PANEL --- */
+.gpt-pane {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.gpt-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-v3-outline);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 4px;
+}
+
+/* --- CARDS --- */
+.gpt-card {
+    background-color: var(--color-v3-surface-container);
+    border-radius: 28px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.gpt-input {
+    background: var(--color-v3-surface-container-high);
+    border: 1px solid var(--color-v3-outline-variant);
+    border-radius: 12px;
+    color: var(--color-v3-on-surface);
+    padding: 10px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* --- BUTTONS --- */
+.ms-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 44px;
+    border-radius: 22px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.ms-btn-danger { background: #8c1d18; color: #f2b8b5; }
+.ms-btn-primary { background: var(--color-v3-primary-container); color: var(--color-v3-on-primary-container); }
+.ms-btn-outline { background: var(--color-v3-surface-container-high); color: var(--color-v3-on-surface); border: 1px solid var(--color-v3-outline-variant); }
+
+/* --- LIBRARY --- */
+.lib-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: var(--color-v3-surface-container-high);
+    border-radius: 16px;
+    margin-bottom: 4px;
+}
+
+.lib-name-title {
+    font-size: 14px;
+    color: var(--color-v3-on-surface);
+    font-weight: 500;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lib-actions { display: flex; gap: 4px; align-items: center; }
+.gpt-lib-btn { 
+    background: transparent; 
+    border: none; 
+    cursor: pointer; 
+    padding: 6px; 
+    border-radius: 8px; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-v3-on-surface-variant, #5f6368);
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+}
+.gpt-lib-btn:hover { 
+    background: var(--color-v3-surface-container-highest, rgba(255,255,255,0.1));
+    color: var(--color-v3-primary, #8ab4f8);
+}
+.gpt-lib-btn svg {
+    display: block;
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+.gpt-status-bar { text-align: center; font-size: 11px; color: var(--color-v3-outline); margin-top: auto; padding: 12px 0; }
+.gpt-hidden { display: none !important; }
+
+/* --- EXISTING DELETE BUTTON STYLES --- */
+.delete-below-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 6px;
+    margin: 0 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+    color: rgb(212, 212, 212);
+}
+
+.delete-below-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #e8eaed;
+}
+
+/* --- NEW BOUNDARY (CHECKBOX) BUTTON STYLES --- */
+.delete-boundary-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 6px;
+    margin: 0 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    opacity: 0.5;
+    color: rgb(212, 212, 212);
+}
+
+.delete-boundary-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+}
+
+/* --- ACTIVE STATE (CHECKED) --- */
+.delete-boundary-button.active {
+    opacity: 1;
+    background-color: rgba(66, 133, 244, 0.15);
+    color: #8ab4f8;
+}
+
+/* --- JUMP BUTTON STYLES --- */
+.jump-buttons-container {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.jump-button {
+    background-color: rgba(30, 30, 30, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    color: #e3e3e3;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.jump-button:hover {
+    background-color: rgba(60, 60, 60, 1);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-1px);
+}
+
+.jump-button:active {
+    transform: translateY(0);
+}
+
+.jump-button svg {
+    pointer-events: none;
+    fill: currentColor;
+    width: 20px;
+    height: 20px;
+}
